@@ -6,8 +6,8 @@
 
 extern const struct ProductAttributes {
 	__unsafe_unretained NSString *brandName;
-	__unsafe_unretained NSString *id;
 	__unsafe_unretained NSString *image;
+	__unsafe_unretained NSString *pid;
 	__unsafe_unretained NSString *price;
 	__unsafe_unretained NSString *productName;
 	__unsafe_unretained NSString *productPage;
@@ -52,25 +52,25 @@ extern const struct ProductFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber* id;
-
-
-
-@property int16_t idValue;
-- (int16_t)idValue;
-- (void)setIdValue:(int16_t)value_;
-
-//- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
 @property (nonatomic, strong) NSString* image;
 
 
 
 //- (BOOL)validateImage:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* pid;
+
+
+
+@property int16_t pidValue;
+- (int16_t)pidValue;
+- (void)setPidValue:(int16_t)value_;
+
+//- (BOOL)validatePid:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -136,17 +136,17 @@ extern const struct ProductFetchedProperties {
 
 
 
-- (NSNumber*)primitiveId;
-- (void)setPrimitiveId:(NSNumber*)value;
-
-- (int16_t)primitiveIdValue;
-- (void)setPrimitiveIdValue:(int16_t)value_;
-
-
-
-
 - (NSString*)primitiveImage;
 - (void)setPrimitiveImage:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitivePid;
+- (void)setPrimitivePid:(NSNumber*)value;
+
+- (int16_t)primitivePidValue;
+- (void)setPrimitivePidValue:(int16_t)value_;
 
 
 

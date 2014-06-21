@@ -5,8 +5,8 @@
 
 const struct ProductAttributes ProductAttributes = {
 	.brandName = @"brandName",
-	.id = @"id",
 	.image = @"image",
+	.pid = @"pid",
 	.price = @"price",
 	.productName = @"productName",
 	.productPage = @"productPage",
@@ -45,8 +45,8 @@ const struct ProductFetchedProperties ProductFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
-	if ([key isEqualToString:@"idValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"id"];
+	if ([key isEqualToString:@"pidValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"pid"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -69,34 +69,34 @@ const struct ProductFetchedProperties ProductFetchedProperties = {
 
 
 
-@dynamic id;
-
-
-
-- (int16_t)idValue {
-	NSNumber *result = [self id];
-	return [result shortValue];
-}
-
-- (void)setIdValue:(int16_t)value_ {
-	[self setId:[NSNumber numberWithShort:value_]];
-}
-
-- (int16_t)primitiveIdValue {
-	NSNumber *result = [self primitiveId];
-	return [result shortValue];
-}
-
-- (void)setPrimitiveIdValue:(int16_t)value_ {
-	[self setPrimitiveId:[NSNumber numberWithShort:value_]];
-}
-
-
-
-
-
 @dynamic image;
 
+
+
+
+
+
+@dynamic pid;
+
+
+
+- (int16_t)pidValue {
+	NSNumber *result = [self pid];
+	return [result shortValue];
+}
+
+- (void)setPidValue:(int16_t)value_ {
+	[self setPid:[NSNumber numberWithShort:value_]];
+}
+
+- (int16_t)primitivePidValue {
+	NSNumber *result = [self primitivePid];
+	return [result shortValue];
+}
+
+- (void)setPrimitivePidValue:(int16_t)value_ {
+	[self setPrimitivePid:[NSNumber numberWithShort:value_]];
+}
 
 
 

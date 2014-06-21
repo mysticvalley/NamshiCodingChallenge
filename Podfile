@@ -12,6 +12,9 @@ pod 'Toast', '~> 2.2'
 pod 'MKNetworkKit'
 pod 'SVProgressHUD', '~> 1.0'
 
+#prama mark - PullToRefresh with InfiniteScrolling Mechanism
+pod 'SVPullToRefresh'
+
 # Disables all Magical Records relating LOGS
 post_install do |installer|
     target = installer.project.targets.find{|t| t.to_s == "Pods-MagicalRecord"}

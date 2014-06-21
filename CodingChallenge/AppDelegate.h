@@ -2,7 +2,7 @@
 //  AppDelegate.h
 //  CodingChallenge
 //
-//  Created by TekTak on 6/19/14.
+//  Created by Rajan Maharjan on 6/19/14.
 //  Copyright (c) 2014 Namshi. All rights reserved.
 //
 

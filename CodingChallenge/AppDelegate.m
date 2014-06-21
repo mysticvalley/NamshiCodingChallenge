@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  CodingChallenge
 //
-//  Created by TekTak on 6/19/14.
+//  Created by Rajan Maharjan on 6/19/14.
 //  Copyright (c) 2014 Namshi. All rights reserved.
 //
 
@@ -13,6 +13,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:SQLITE_FILE];
     return YES;
 }
 							
@@ -41,6 +42,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [MagicalRecord cleanUp];
 }
 
 @end
