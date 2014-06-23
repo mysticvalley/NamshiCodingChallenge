@@ -7,6 +7,7 @@
 //
 
 #import <SVPullToRefresh/SVPullToRefresh.h>
+#import "WebViewController.h"
 #import "ProductsTableViewController.h"
 #import "Product.h"
 
@@ -14,6 +15,7 @@
 
 @property (nonatomic, assign) NSInteger productID;
 @property (nonatomic, strong) NSMutableArray *tableData;
+@property (nonatomic, strong) NSMutableArray *searchResults;
 
 @property (nonatomic, assign) NSInteger lastFetchedProductID;
 
@@ -28,6 +30,12 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (void)viewDidLoad
@@ -264,6 +272,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+        return [self.searchResults count];
+    }
     // Return the number of rows in the section.
     return [self.tableData count];
 }
@@ -271,23 +283,36 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellIdentifier = @"SubtitleCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell= nil;
+    NSString *cellIdentifier = @"NormalCell";
     
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if ( cell == nil ) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        }
+    }
+    else {
+        cellIdentifier = @"SubtitleCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    }
     // Configure the cell...
     Product *p = [self.tableData objectAtIndex:indexPath.row];
     cell.textLabel.text = p.productName;
     cell.detailTextLabel.text = p.brandName;
+
     return cell;
 }
 
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-
-    
+    Product *p = [self.tableData objectAtIndex:indexPath.row];
+    WebViewController *webViewController = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([WebViewController class])];
+    webViewController.title = p.productName;
+    [self.navigationController pushViewController:webViewController animated:YES];
 }
 
 /*
@@ -338,5 +363,42 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+#pragma mark - Content Filtering
+
+- (void)updateFilteredContentForName:(NSString *)searchName searchScope:(NSInteger) scope
+{
+    [self.searchResults removeAllObjects]; // First clear the filtered array.
+    // Filter the array using NSPredicate
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"productName contains[c] %@ || brandName contains[c] %@", searchName, searchName];
+    NSArray *tempArray = [self.tableData filteredArrayUsingPredicate:predicate];
+    self.searchResults = [NSMutableArray arrayWithArray:tempArray];
+}
+
+#pragma mark - UISearchDisplayController Delegate Methods
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    NSInteger selectedScopeButtonIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
+    [self updateFilteredContentForName:searchString searchScope:selectedScopeButtonIndex];
+    
+    // Return YES to cause the search result table view  to be reloaded.
+    return YES;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
+{
+    NSString *searchString = [self.searchDisplayController.searchBar text];
+    
+    [self updateFilteredContentForName:searchString searchScope:searchOption];
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    NSLog(@"Search Bar Clicked");
+}
 
 @end
