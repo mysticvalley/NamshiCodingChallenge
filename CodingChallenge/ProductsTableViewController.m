@@ -6,13 +6,16 @@
 //  Copyright (c) 2014 Namshi. All rights reserved.
 //
 
+#import <SVPullToRefresh/SVPullToRefresh.h>
 #import "ProductsTableViewController.h"
 #import "Product.h"
 
 @interface ProductsTableViewController ()
 
-@property (nonatomic, strong) NSString *productID;
+@property (nonatomic, assign) NSInteger productID;
 @property (nonatomic, strong) NSMutableArray *tableData;
+
+@property (nonatomic, assign) NSInteger lastFetchedProductID;
 
 @end
 
@@ -38,21 +41,115 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.title = @"Products";
-    self.productID = @"1";
     
+    // Initial Product Id
+    self.productID = 1;
+    
+    UIBarButtonItem *clearItem = [[UIBarButtonItem alloc] initWithTitle:@"Clear DB" style:UIBarButtonItemStylePlain target:self action:@selector(clearCache:)];
+    self.navigationItem.leftBarButtonItem = clearItem;
+
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(saveSampleProductsToCoreData)];
     self.navigationItem.rightBarButtonItem = barButtonItem;
     
-//    [self.tableView addinfi
     
+    // Loading previously Saved data from local iPhone database
+    NSManagedObjectContext *defaultContext = [NSManagedObjectContext MR_defaultContext];
+    self.tableData = [[Product MR_findAllSortedBy:@"productName" ascending:YES inContext:defaultContext] mutableCopy];
+    
+    if ( self.tableData > 0 ) {
+        __weak ProductsTableViewController *weakSelf = self;
+        
+        // setup infinite scrolling
+        [self.tableView addInfiniteScrollingWithActionHandler:^{
+            [weakSelf insertRowAtBottom];
+        }];
+    }
     /* Pull products from from server using REST API */
-    [self pullProductsFromServerFromProductID:self.productID productsCount:50];
+    // Get 20 records startingw withing pid = self.productID
+    
+#warning - below Method method implements logic to pull products from server and save it to local iphone db
+//    [self pullProductsFromServerFromProductID:self.productID productsCount:20];
+}
+
+- (void) clearCache:(id) sender {
+    
+    // Reset everything here
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    
+    [self.view makeToast:@"Core data flushed! Add + button to add sample data with infinite scrolling" duration:5.0 position:TOAST_POSITION_CENTER];
+    NSString *dbStore = SQLITE_FILE;
+    NSError *error = nil;
+    NSURL *storeURL = [NSPersistentStore MR_urlForStoreName:dbStore];
+    
+    [MagicalRecord cleanUp];
+    
+    if([[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error])
+        [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:SQLITE_FILE];
+
+    else{
+        NSLog(@"An error has occurred while deleting %@", dbStore);
+        NSLog(@"Error description: %@", error.description);
+    }
+    
+    self.tableData = [[Product MR_findAll] mutableCopy];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+/* Not used for this demo
+- (void)insertRowAtTop {
+    __weak ProductsTableViewController *weakSelf = self;
+    
+    // delaying so that we can see Waiting Spinner in UI
+    int64_t delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [weakSelf.tableView beginUpdates];
+        
+        NSManagedObjectContext *defaultContext = [NSManagedObjectContext MR_defaultContext];
+        Product *newInsertingProduct = [Product MR_createInContext:defaultContext];
+        newInsertingProduct.brandName = [NSString stringWithFormat:@"Loaded BrandName %d", arc4random()%100];
+        newInsertingProduct.productName = [NSString stringWithFormat:@"Loaded ProductName %d", arc4random()%100];
+        [defaultContext MR_saveToPersistentStoreAndWait];
+
+        [weakSelf.tableData addObject:newInsertingProduct];        
+        [weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
+        [weakSelf.tableView endUpdates];
+        [weakSelf.tableView.pullToRefreshView stopAnimating];
+    });
+} */
+
+- (void)insertRowAtBottom {
+    __weak ProductsTableViewController *weakSelf = self;
+    
+    int64_t delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+        [weakSelf.tableView beginUpdates];
+
+#warning - Uncomment below code to pull the data from server and save it to coredata Logic
+        // The new product items with the server url can be fetched here and save fetched data to database and add it to tableview
+//        [self pullProductsFromServerFromProductID:self.lastFetchedProductID+1 productsCount:20];
+        
+#warning - Adding only one record into the core data and loading it in table
+        NSManagedObjectContext *defaultContext = [NSManagedObjectContext MR_defaultContext];
+        Product *newInsertingProduct = [Product MR_createInContext:defaultContext];
+        newInsertingProduct.brandName = [NSString stringWithFormat:@"Loaded BrandName %d", arc4random()%100];
+        newInsertingProduct.productName = [NSString stringWithFormat:@"Loaded ProductName %d", arc4random()%100];
+        [defaultContext MR_saveToPersistentStoreAndWait];
+        [weakSelf.tableData addObject:newInsertingProduct];
+
+        [weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:weakSelf.tableData.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+        [weakSelf.tableView endUpdates];
+        [weakSelf.tableView.infiniteScrollingView stopAnimating];
+    });
 }
 
 - (void) saveSampleProductsToCoreData {
@@ -77,20 +174,27 @@
         [defaultContext MR_saveToPersistentStoreAndWait];
     }
     
-    [self.view makeToast:@"5 Sample Products Added" duration:3.0 position:@"Center"];
+    [self.view makeToast:@"+5 Sample Products Added" duration:TOAST_DURATION position:TOAST_POSITION_CENTER];
     
     self.tableData = [[Product MR_findAllInContext:defaultContext] mutableCopy];
     [self.tableView reloadData];
+    
+    __weak ProductsTableViewController *weakSelf = self;
+    
+    // setup infinite scrolling
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf insertRowAtBottom];
+    }];
 }
 
 #pragma mark - REST Methods
 
-- (void) pullProductsFromServerFromProductID:(NSString *) productID productsCount:(NSUInteger) count {
+- (void) pullProductsFromServerFromProductID:(NSInteger) productID productsCount:(NSUInteger) count {
     
     /* Shows Loading indicator */
     [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeBlack];
     
-    NSString *productURLWithParams = [NSString stringWithFormat:@"%@?from=%@&count=%d", PRODUCT_API_URL, productID, count];
+    NSString *productURLWithParams = [NSString stringWithFormat:@"%@?from=%d&count=%d", PRODUCT_API_URL, productID, count];
     
     // Considering API consumes GET Verb
     [[NetworkHelper sharedHelper] GETRequestWithURL:productURLWithParams completionBlock:^(MKNetworkOperation *completedOperation) {
@@ -132,6 +236,10 @@
         NSArray *products = productsJSON[@"response"];
         [[CoreDataHelper sharedHelper] saveProductsToCoreDataWithProductsArray:products];
         
+        NSDictionary *lastFetchedProduct = [products lastObject];
+
+        // Saving last fetched product Id for loading next page products when user scrolls down
+        self.lastFetchedProductID = [[lastFetchedProduct  objectForKey:@"id"] integerValue];
         self.tableData = [[Product MR_findAll] mutableCopy];
         [self.tableView reloadData];
         
@@ -178,6 +286,7 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+
     
 }
 

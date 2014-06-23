@@ -50,6 +50,34 @@
             </objects>
             <point key="canvasLocation" x="557" y="56"/>
         </scene>
+        <!--Web View Controller-->
+        <scene sceneID="5eT-ie-eAa">
+            <objects>
+                <viewController id="Npz-5y-naw" customClass="WebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XeI-64-rVT"/>
+                        <viewControllerLayoutGuide type="bottom" id="vAr-Wi-OdJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Whd-RY-r5s">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vvO-wI-z4W">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="vvO-wI-z4W" id="kg1-uD-6dz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KAV-pG-GMk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="911" y="56"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="EhP-pC-kZS">
             <objects>

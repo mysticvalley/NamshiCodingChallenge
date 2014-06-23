@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		26007FEB1957D75C00F682DA /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26007FEA1957D75C00F682DA /* WebViewController.m */; };
 		26164B0D1954917E0066E861 /* NetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 26164B0C1954917E0066E861 /* NetworkHelper.m */; };
 		26164B11195548DB0066E861 /* ResourceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 26164B10195548DB0066E861 /* ResourceHelper.m */; };
 		26164B1519554B1B0066E861 /* ProductsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26164B1419554B1B0066E861 /* ProductsTableViewController.m */; };
@@ -62,6 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		26007FE91957D75C00F682DA /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		26007FEA1957D75C00F682DA /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		26164B0B1954917E0066E861 /* NetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkHelper.h; sourceTree = "<group>"; };
 		26164B0C1954917E0066E861 /* NetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkHelper.m; sourceTree = "<group>"; };
 		26164B0F195548DB0066E861 /* ResourceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceHelper.h; sourceTree = "<group>"; };
@@ -141,6 +144,8 @@
 			children = (
 				26164B1319554B1B0066E861 /* ProductsTableViewController.h */,
 				26164B1419554B1B0066E861 /* ProductsTableViewController.m */,
+				26007FE91957D75C00F682DA /* WebViewController.h */,
+				26007FEA1957D75C00F682DA /* WebViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -398,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26F8CA2619536122001622A0 /* _Product.m in Sources */,
+				26007FEB1957D75C00F682DA /* WebViewController.m in Sources */,
 				26F8CA2519536122001622A0 /* Product.m in Sources */,
 				26164B11195548DB0066E861 /* ResourceHelper.m in Sources */,
 				26164B191955BCF50066E861 /* CoreDataHelper.m in Sources */,

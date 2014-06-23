@@ -20,4 +20,6 @@
 
 #define     BASE_NAMSHI_API_ADDRESS             @"http://api.namshi.com"
 #define     PRODUCT_API_URL                     BASE_NAMSHI_API_ADDRESS @"/products/"
+#define     TOAST_DURATION                      2.0
 
+#define     TOAST_POSITION_CENTER               @"center"
