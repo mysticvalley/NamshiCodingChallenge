@@ -9,7 +9,13 @@ The challenge details are followed from following URL.
 
 https://github.com/namshi/coding-challenges/blob/master/lead-mobile-engineer.md
 
-The app uses cocoapods to download its dependencies and setup project. The Test cases for the challenge are not yet covered. Test cases can also be
-furnished upon request.
+The Test cases for the challenge are not yet covered. Test cases can also be furnished upon request.
 
+App dependencies:
+
+Cocoapods: It uses cocoa pods to build and manage dependencies. Please go to http://www.cocoapods.org for more.
+Mogenerator: It uses mogenerator to automatically generate CoreData models for updating Entities. For more please visit 
+            http://rentzsch.github.io/mogenerator/
+            
+            
 For further queries please contact me to email : contact@razan.com.np
