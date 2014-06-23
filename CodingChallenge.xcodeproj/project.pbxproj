@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		26007FEB1957D75C00F682DA /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26007FEA1957D75C00F682DA /* WebViewController.m */; };
+		26007FED195833F000F682DA /* README.MD in Resources */ = {isa = PBXBuildFile; fileRef = 26007FEC195833F000F682DA /* README.MD */; };
 		26164B0D1954917E0066E861 /* NetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 26164B0C1954917E0066E861 /* NetworkHelper.m */; };
 		26164B11195548DB0066E861 /* ResourceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 26164B10195548DB0066E861 /* ResourceHelper.m */; };
 		26164B1519554B1B0066E861 /* ProductsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26164B1419554B1B0066E861 /* ProductsTableViewController.m */; };
@@ -65,6 +66,7 @@
 /* Begin PBXFileReference section */
 		26007FE91957D75C00F682DA /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		26007FEA1957D75C00F682DA /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		26007FEC195833F000F682DA /* README.MD */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.MD; sourceTree = "<group>"; };
 		26164B0B1954917E0066E861 /* NetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkHelper.h; sourceTree = "<group>"; };
 		26164B0C1954917E0066E861 /* NetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkHelper.m; sourceTree = "<group>"; };
 		26164B0F195548DB0066E861 /* ResourceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceHelper.h; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		26F8C9D519535EAD001622A0 = {
 			isa = PBXGroup;
 			children = (
+				26007FEC195833F000F682DA /* README.MD */,
 				26F8CA1E19536114001622A0 /* CoreData */,
 				26F8C9E719535EAD001622A0 /* CodingChallenge */,
 				26F8CA0619535EAD001622A0 /* CodingChallengeTests */,
@@ -337,6 +340,7 @@
 			files = (
 				26F8C9FA19535EAD001622A0 /* Images.xcassets in Resources */,
 				26F8C9EC19535EAD001622A0 /* InfoPlist.strings in Resources */,
+				26007FED195833F000F682DA /* README.MD in Resources */,
 				26F8C9F519535EAD001622A0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -21,6 +21,26 @@
     return whatever;
 }
 
+- (void) clearAndResetDatabase {
+    
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    
+    NSString *dbStore = SQLITE_FILE;
+    NSError *error = nil;
+    NSURL *storeURL = [NSPersistentStore MR_urlForStoreName:dbStore];
+    
+    [MagicalRecord cleanUp];
+    
+    if([[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error])
+        [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:SQLITE_FILE];
+    
+    else{
+        NSLog(@"An error has occurred while deleting %@", dbStore);
+        NSLog(@"Error description: %@", error.description);
+    }
+}
+
 #pragma mark - REST Operations
 
 - (void) saveProductsToCoreDataWithProductsArray:(NSArray *) productsArray {

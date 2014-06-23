@@ -6,6 +6,10 @@
 //  Copyright (c) 2014 Namshi. All rights reserved.
 //
 
+/*
+ *  This class contains code to communicate with remote server via Internet
+ */
+
 #import <Foundation/Foundation.h>
 #import <MKNetworkKit/MKNetworkKit.h>
 

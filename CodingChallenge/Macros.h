@@ -6,6 +6,10 @@
 //  Copyright (c) 2014 Namshi. All rights reserved.
 //
 
+/*
+ *  This file contains List of important Macros defined here which will used throughout the whole application
+ */
+
 #pragma mark - BASICS
 
 #define     SQLITE_FILE                         @"namshi.sqlite"

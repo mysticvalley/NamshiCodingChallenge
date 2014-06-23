@@ -82,24 +82,9 @@
 - (void) clearCache:(id) sender {
     
     // Reset everything here
-    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    [[CoreDataHelper sharedHelper] clearAndResetDatabase];
     
     [self.view makeToast:@"Core data flushed! Add + button to add sample data with infinite scrolling" duration:5.0 position:TOAST_POSITION_CENTER];
-    NSString *dbStore = SQLITE_FILE;
-    NSError *error = nil;
-    NSURL *storeURL = [NSPersistentStore MR_urlForStoreName:dbStore];
-    
-    [MagicalRecord cleanUp];
-    
-    if([[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error])
-        [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:SQLITE_FILE];
-
-    else{
-        NSLog(@"An error has occurred while deleting %@", dbStore);
-        NSLog(@"Error description: %@", error.description);
-    }
-    
     self.tableData = [[Product MR_findAll] mutableCopy];
     [self.tableView reloadData];
 }
@@ -142,7 +127,7 @@
         
         [weakSelf.tableView beginUpdates];
 
-#warning - Uncomment below code to pull the data from server and save it to coredata Logic
+#warning - Uncomment below code to pull the data from server and save it to coredata Logic and comment sample one record adding code
         // The new product items with the server url can be fetched here and save fetched data to database and add it to tableview
 //        [self pullProductsFromServerFromProductID:self.lastFetchedProductID+1 productsCount:20];
         
