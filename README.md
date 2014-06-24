@@ -1,7 +1,7 @@
 NamshiCodingChallenge
 =====================
 
-#THIS PROGRAM IS CREATED BY RAJAN MAHARJAN FOR NAMSHI.COM
+THIS PROGRAM IS CREATED BY RAJAN MAHARJAN FOR NAMSHI.COM
 
 This project is prepared for attending Coding Challenge to be submitted to 
 Alessandro Nadalin ( VP of namshi.com ) as an assignment for job application posted in
