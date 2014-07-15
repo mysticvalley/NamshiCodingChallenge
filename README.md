@@ -1,14 +1,9 @@
-NamshiCodingChallenge
+CodingChallenge Sample
 =====================
 
-THIS PROGRAM IS CREATED BY RAJAN MAHARJAN FOR NAMSHI.COM
+THIS PROGRAM IS CREATED BY RAJAN MAHARJAN
 
-This project is prepared for attending Coding Challenge to be submitted to 
-Alessandro Nadalin ( VP of namshi.com ) as an assignment for job application posted in
-
-http://tech.namshi.com/blog/2014/06/03/like-android-and-ios-lets-change-shopping-in-the-middle-east-together/
-
-The challenge details are followed from following URL.
+This project is prepared as an sample assignment. The challenge details are followed from following URL.
 
 https://github.com/namshi/coding-challenges/blob/master/lead-mobile-engineer.md
 
@@ -21,4 +16,4 @@ Mogenerator: It uses mogenerator to automatically generate CoreData models for u
             http://rentzsch.github.io/mogenerator/
             
             
-For further queries please contact me to email : contact@razan.com.np
+For further queries please contact me at : contact@razan.com.np
